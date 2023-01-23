@@ -10,16 +10,19 @@ export class WeatherApiService {
 
   constructor(private http: HttpClient) { }
 
-  getCurrentWeather(location: string): Observable<HttpResponse<CurrentWeather>> {
-    return this.http.get<CurrentWeather>(`https://api.weatherapi.com/v1/current.json?key=f40e5995730147ca8f3135201232301&q=${location}&aqi=no`, {observe: 'response'});
+  //retourneert informatie over de locatie en de huidige weersinformatie
+  getCurrentWeather(location: string): Observable<CurrentWeather> {
+    return this.http.get<CurrentWeather>(`https://api.weatherapi.com/v1/current.json?key=f40e5995730147ca8f3135201232301&q=${location}&aqi=no`);
   }
 
-  getWeatherForecast(location: string): Observable<HttpResponse<WeatherForecast>> {
-    return this.http.get<WeatherForecast>(`https://api.weatherapi.com/v1/forecast.json?key=f40e5995730147ca8f3135201232301&q=${location}&days=5&aqi=no&alerts=yes`, {observe: 'response'});
+  //retourneert informatie over de locatie en de huidige weersvoorspelling voor de komende 5 dagen
+  getWeatherForecast(location: string): Observable<WeatherForecast> {
+    return this.http.get<WeatherForecast>(`https://api.weatherapi.com/v1/forecast.json?key=f40e5995730147ca8f3135201232301&q=${location}&days=5&aqi=no&alerts=yes`);
   }
 
-  getWeatherComparison(locationOne: string, locationTwo: string): Observable<[HttpResponse<CurrentWeather>, HttpResponse<CurrentWeather>]> {
-    return combineLatest(this.http.get<CurrentWeather>(`https://api.weatherapi.com/v1/current.json?key=f40e5995730147ca8f3135201232301&q=${locationOne}&days=5&aqi=no&alerts=yes`,{observe: 'response'}), this.http.get<CurrentWeather>(`https://api.weatherapi.com/v1/current.json?key=f40e5995730147ca8f3135201232301&q=${locationTwo}&days=5&aqi=no&alerts=yes`, {observe: 'response'}));
+  //retourneert informatie over de twee locaties en de huidige weersinformatie voor beide
+  getWeatherComparison(locationOne: string, locationTwo: string): Observable<[CurrentWeather, CurrentWeather]> {
+    return combineLatest(this.http.get<CurrentWeather>(`https://api.weatherapi.com/v1/current.json?key=f40e5995730147ca8f3135201232301&q=${locationOne}&days=5&aqi=no&alerts=yes`), this.http.get<CurrentWeather>(`https://api.weatherapi.com/v1/current.json?key=f40e5995730147ca8f3135201232301&q=${locationTwo}&days=5&aqi=no&alerts=yes`));
   }
 
 }
