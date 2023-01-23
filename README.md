@@ -13,4 +13,6 @@ Task:
 *	Nice to have if the developer uses ng-zorro-ant d library and following the design system ( or any other design system)
 
 
+**Fork the repo first before making changes**
+
 [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-ivy-cp4fwd)
